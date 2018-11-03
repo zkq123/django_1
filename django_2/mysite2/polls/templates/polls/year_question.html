@@ -1,0 +1,14 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
+
+{% if question_year %}
+    <ul>
+        <!--推荐的用法-->
+        {% for question in question_year %}
+        <li><a href="{% url 'polls:detail' question.id %}" >{{ question.question_text }}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>指定年份没有待投票的问题</p>
+{% endif %}

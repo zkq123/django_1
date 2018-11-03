@@ -1,0 +1,7 @@
+body{
+    background: url('imgs/background.jpg') no-repeat;
+}
+
+li a {
+    color: pink;
+}

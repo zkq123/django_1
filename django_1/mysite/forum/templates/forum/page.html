@@ -1,0 +1,17 @@
+{% if show_list %}
+    {% for i in show_list %}
+    name:{{ i.name }}
+    email:{{ i.email }}<br>
+    {% endfor %}
+<p>一共有{{ page_count }}页</p>
+<p>当前在{{ page_1 }}页</p>
+<a href="{% url 'forum:page' page_1 %}">下一页</a>
+<a href="{% url 'forum:page_before' page_1 %}">上一页</a>
+<form action="{% url 'forum:page_dump' page_1  %}" method="post">
+    {% csrf_token %}
+    跳转至<input type="text" name="page">页
+     <input type="submit" value="跳转">
+</form>
+{% else %}
+    no datas
+{% endif %}
