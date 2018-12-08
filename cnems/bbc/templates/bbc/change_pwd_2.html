@@ -1,0 +1,41 @@
+{% extends 'bbc/set_person.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改密码2页面</title>
+    {% block sta %}
+      {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'bbc/css/change_pwd_2.css' %}" >
+    {% endblock %}
+</head>
+<body>
+    {% block s9 %}
+ <div class="s9">
+            <p ><a href="">个人资料</a></p>
+            <p id="i1"><a href="">修改密码</a></p>
+            <p><a href="">退出登录</a></p>
+        </div>
+
+{% endblock %}
+
+    {% block s4 %}
+    <form action="{% url 'bbc:save_pwd' %}" method="post">
+     {% csrf_token %}
+<div class="s4">
+    <div id="d8"></div>
+    <p>修改密码</p>
+    <div id="a1">
+        <input id="a4" type="password" placeholder="请输入新密码" name="new_pwd">
+        <input id="a3" type="password" placeholder="请再次输入新密码" name="new_pwd_2">
+        <input id="a5" type="submit" value="完成">
+    </div>
+    {% if message %}
+    {{ message }}
+    {% endif %}
+</div>
+     </form>
+{% endblock %}
+
+
+</body>
+</html>

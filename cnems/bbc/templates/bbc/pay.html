@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>充值页面</title>
+    {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'bbc/css/pay.css' %}" >
+</head>
+<body>
+
+<form action="{% url 'bbc:pay_2' %}" method="post" id="frmMain">
+    {% csrf_token %}
+    <div id="j1">
+        <div id="v2" class="k1"></div>
+        <p class="k2" id="v3">支付</p>
+        <div id="v4">
+        <p>支付金额：￥<span id="b1">1000</span></p>
+        </div>
+        <p class="k2" id="v6">选择购买方式</p>
+        <label for="v10" class="k5" id="n1" >
+            <img src="{% static 'bbc/img/v1.png' %}" alt="">
+            <span>￥2000</span>
+            <p>每个月可免费发
+                布2条新闻
+            </p>
+        </label>
+        <input type="radio" name="price" value="1" id="v10" >
+        <input type="hidden" name="moy" id="n4" >
+        <label for="v11" class="k5" id="n2">
+            <img src="{% static 'bbc/img/v2.png' %}" alt="">
+            <span>￥5000</span>
+            <p>每个月可免费发
+                布5条新闻
+            </p>
+        </label>
+        <input type="radio" name="price" value="2" id="v11">
+        <label for="v12" class="k5" id="n3">
+            <img src="{% static 'bbc/img/v3.png' %}" alt="">
+            <span>￥10000</span>
+            <p>每个月可免费发
+                布10条新闻
+            </p>
+        </label>
+        <input type="radio" name="price" value="3" id="v12">
+        <p class="k2" id="v8">选择购买方式</p>
+        <label for="e1" id="v7"><img src="{% static 'bbc/img/we.png' %}" alt=""></label>
+        <input type="radio" name="payment" value="we" id="e1">
+        <label for="e2" id="v9"><img src="{% static 'bbc/img/zfb.png' %}" alt=""></label>
+        <input type="radio" name="payment" value="zfb" id="e2">
+        <input type="button" value="确认支付" id="v13">
+    </div>
+
+    </form>
+</body>
+ <script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script language="JavaScript" type="text/JavaScript">
+    {% if message %}
+    alert('{{ message }}')
+    {% endif %}
+    {% if user_1 %}
+        var a = {{ user_1.vip }}
+        if (a==0){
+            b = 0
+        }
+        if (a==1){
+            b = 2000
+        }
+         if (a==2){
+            b = 3000
+        }
+         if (a==3){
+            b = 4000
+        }
+
+    $('#n1').click(function(){
+        $(this).css({'border':'2px solid #1992EF'}),
+        $('#n2').css({'border':'1px solid #D9D9D9'}),
+        $('#n3').css({'border':'1px solid #D9D9D9'});
+        if (2000-b<0){
+            $('#n4')[0].value=0
+           $('#b1').html(0)
+        }else{
+            $('#n4')[0].value=2000-b
+            $('#b1').html(2000-b)
+        }
+
+    })
+    $('#n2').click(function(){
+        $(this).css({'border':'2px solid #1992EF'}),
+        $('#n1').css({'border':'1px solid #D9D9D9'}),
+        $('#n3').css({'border':'1px solid #D9D9D9'});
+        $('#n4')[0].value=5000-b
+        $('#b1').html(5000-b)
+    })
+    $('#n3').click(function(){
+        $(this).css({'border':'2px solid #1992EF'}),
+        $('#n2').css({'border':'1px solid #D9D9D9'}),
+        $('#n1').css({'border':'1px solid #D9D9D9'});
+        $('#n4')[0].value=10000-b
+        $('#b1').html(10000-b)
+    })
+    $('#v7').click(function(){
+        $(this).css({'border':'2px solid #1992EF'}),
+        $('#v9').css({'border':'1px solid #D9D9D9'});
+    })
+      $('#v9').click(function(){
+        $(this).css({'border':'2px solid #1992EF'}),
+        $('#v7').css({'border':'1px solid #D9D9D9'});
+    })
+    $('#v13').click(function(){
+        money = $('#n4').val()
+        if (money.length>0){
+         $("#v13").attr('disabled', true);
+	    frmMain.submit();
+    }else{
+        alert('请选择购买方式')
+    }})
+
+    {% endif %}
+</script>
+</html>

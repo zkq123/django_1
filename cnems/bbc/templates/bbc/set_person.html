@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}<title>个人资料页面</title>{% endblock %}
+    {% block sta %}
+    {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'bbc/css/set_person.css' %}" >
+    {% endblock %}
+</head>
+<body>
+    <div class="s1">
+        <a href="{% url 'bbc:face' %}"><img src="{% static 'bbc/img/1.jpg' %}" alt=""></a>
+        <div id="d1"><a href="{% url 'bbc:publish_comment' %}">发布内容</a></div>
+        <img src="{{ user_1.get_url }}" alt="">
+
+    </div>
+    <div class="s2">
+            <img id="d2" src="{{ user_1.get_url }}" alt="">
+            <div id="d3"><p>{{ user_1.neck_name }}</p></div>
+             <img id="d4" src="{% static 'bbc/img/vip.png' %}" alt="">
+            <div class="s5">
+                <p>积分剩余</p>
+                <p>{{ user_1.integral }}</p>
+            </div>
+            <div class="s6">
+                <p>剩余发布次数</p>
+                <p>{{ user_1.number }}</p>
+            </div>
+            <div class="s7"></div>
+    </div>
+    {% block s3 %}
+    <div class="s3">
+        {% block hy %}
+        <div class="s8">
+            <img src="{% static 'bbc/img/my_vip.png' %}" alt="">
+            <p id="p1"><a href="{% url 'bbc:my_vip' %}">我的会员</a></p>
+        </div>
+        {% endblock %}
+        {% block jf %}
+        <div class="s8">
+            <img src="{% static 'bbc/img/my_jf.png' %}" alt="">
+            <p><a href="{% url 'bbc:my_integral' %}">我的积分</a></p>
+        </div>
+        {% endblock %}
+        {% block publish %}
+         <div class="s8">
+            <img src="{% static 'bbc/img/post_n.png' %}" alt="">
+            <p><a href="{% url 'bbc:my_publish' %}">我的发布</a></p>
+        </div>
+        {% endblock %}
+        {% block news %}
+         <div class="s8">
+            <img src="{% static 'bbc/img/xxx_n.png' %}" alt="">
+            <p><a href="{% url 'bbc:my_news' %}">消息通知</a></p>
+        </div>
+        {% endblock %}
+        {% block sz %}
+         <div class="s8" id="d7">
+            <img src="{% static 'bbc/img/sz.png' %}" alt="">
+            <p id="d6"><a href="{% url 'bbc:set_person' %}">设置</a></p>
+             <img id="d5" src="{% static 'bbc/img/xia.png' %}" alt="">
+        </div>
+        {% endblock %}
+        {% block s9 %}
+        <div class="s9">
+            <p id="i1"><a href="{% url 'bbc:set_person' %}">个人资料</a></p>
+            <p><a href="{% url 'bbc:change_pwd' %}">修改密码</a></p>
+            <p><a href="{% url 'bbc:login_out' %}">退出登录</a></p>
+        </div>
+        {% endblock %}
+    </div>
+    {% endblock %}
+
+    {% block s4 %}
+    <form action="{% url 'bbc:save_set_person' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+    <div class="s4">
+        <div id="d8"></div>
+        <p>个人资料</p>
+        <span>头像：</span>
+        <label for="e1"><img id="d9" src="{{ user_1.get_url }}" alt=""></label>
+        <input id="e1" type="file" name="portrait">
+        <div class="s10">
+            <span>昵称：</span>
+            <input type="text" placeholder="  这里是我的昵称" name="neck_name" value="{{ user_1.neck_name }}">
+        </div>
+        <div class="s10">
+            <span id="d10">手机号：{{ user_1.phone }}</span>
+            <input id="d12" type="submit" value="保存">
+        </div>
+    </div>
+        </form>
+    {% endblock %}
+</body>
+{% block super %}
+ <script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script language="JavaScript" type="text/JavaScript">
+    $(document).ready(function(){
+        $('#d7').click(function(){
+           $('.s9').toggle('slow');
+           $('#d5').toggle('slow');
+        })
+    })
+{% endblock %}
+</script>
+</html>

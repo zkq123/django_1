@@ -1,0 +1,59 @@
+
+{% extends 'bbc/set_person.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改密码页面</title>
+    {% block sta %}
+      {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'bbc/css/change_pwd.css' %}" >
+    {% endblock %}
+</head>
+<body>
+{% block s9 %}
+ <div class="s9">
+            <p ><a href="{% url 'bbc:set_person' %}">个人资料</a></p>
+            <p id="i1"><a href="#">修改密码</a></p>
+            <p><a href="{% url 'bbc:login_out' %}">退出登录</a></p>
+        </div>
+
+{% endblock %}
+
+
+{% block s4 %}
+ <form action="{% url 'bbc:change_pwd_2' %}" method="post">
+     {% csrf_token %}
+<div class="s4">
+    <div id="d8"></div>
+    <p>修改密码</p>
+    <div id="a1">
+        <input id="a4" type="text" placeholder="请输入注册手机号" value="{{ user_1.phone }}" disabled="disabled">
+        <div id="a2"></div>
+        <input id="a3" type="text" placeholder="请输入验证码" name="ver"> <span><p class="y1">获取验证码</p></span>
+
+        <input id="a5" type="submit" value="下一步"><br>
+        {% if message %}
+        {{ message }}
+        {% endif %}
+    </div>
+</div>
+     </form>
+{% endblock %}
+</body>
+{% block super %}
+<script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script language="JavaScript" type="text/JavaScript">
+    $('.y1').click(function(){
+        phone = {{ user_1.phone }};
+        var params = {"phone":phone};
+
+        console.log('1')
+			$.ajax({
+				type: 'POST',
+				url: '{% url 'bbc:verify' %}',
+				data: params
+			});
+    })
+</script>
+{% endblock %}
+</html>

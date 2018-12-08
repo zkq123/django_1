@@ -1,0 +1,156 @@
+{% extends 'bbc/set_person.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}<title>我的发布</title>{% endblock %}
+     {% block sta %}
+    {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'bbc/css/my_publish.css' %}" >
+    {% endblock %}
+</head>
+<body>
+
+
+        {% block s9 %}
+        <div class="s9">
+            <p><a href="{% url 'bbc:set_person' %}">个人资料</a></p>
+            <p><a href="{% url 'bbc:change_pwd' %}">修改密码</a></p>
+            <p><a href="{% url 'bbc:login_out' %}">退出登录</a></p>
+        </div>
+        {% endblock %}
+
+        {% block publish %}
+         <div class="s8" id="v1">
+            <img src="{% static 'bbc/img/post_n.png' %}" alt="">
+            <p><a href="">我的发布</a></p>
+        </div>
+        {% endblock %}
+
+        {% block s4 %}
+      <div id="j1">
+        <div id="v2" class="k1"></div>
+        <p class="k2" id="v3">我的发布</p>
+          <span class="h1" id="q1">全部</span>
+          <span class="h1" id="q2">待审核</span>
+          <span class="h1" id="q3">审核通过</span>
+          <span class="h1" id="q4">审核未通过</span>
+          <div class="q6">
+              <span id="n1"></span>
+              <span id="n2"></span>
+              <span id="n3"></span>
+              <span id="n4"></span>
+          </div>
+      </div>
+        {% if news %}
+            {% for n in news %}
+            <div class="h3">
+                   <img src="{{ n.get_news_url }}" class="q5">
+                <div class="q12">
+                    <p class="q7">{{ n.news_title }}</p>
+                    <div class="q9"><a href="{% url 'bbc:news_comment' n.id %}">{{ n.news_center|safe }}</a></div>
+                    <p class="q10">{{ n.news_author }} | {{ n.news_time|date:'Y-m-d H:i:s' }}</p>
+
+                    </div>
+                {% load bbc_filter %}
+                 <img src="{{ n|check_status }}" class="q11">
+            </div>
+            {% endfor %}
+        {% for n in news %}
+        {% if n.news_check == '0' %}
+                  <div class="h4">
+                   <img src="{{ n.get_news_url }}" class="q5">
+                <div class="q12">
+                    <p class="q7">{{ n.news_title }}</p>
+                    <div class="q9"><a href="{% url 'bbc:news_comment' n.id %}">{{ n.news_center|safe }}</a></div>
+                    <p class="q10">{{ n.news_author }} | {{ n.news_time|date:'Y-m-d H:i:s' }}</p>
+                </div>
+
+                       {% load bbc_filter %}
+                 <img src="{{ n|check_status }}" class="q11">
+                       </div>
+            {% endif %}
+          {% endfor %}
+
+        {% for n in news %}
+        {% if n.news_check == '1' %}
+                  <div class="h5">
+                   <img src="{{ n.get_news_url }}" class="q5">
+                <div class="q12">
+                    <p class="q7">{{ n.news_title }}</p>
+                    <div class="q9"><a href="{% url 'bbc:news_comment' n.id %}">{{ n.news_center|safe }}</a></div>
+                    <p class="q10">{{ n.news_author }} | {{ n.news_time|date:'Y-m-d H:i:s' }}</p>
+                </div>
+
+                       {% load bbc_filter %}
+                 <img src="{{ n|check_status }}" class="q11">
+         </div>
+            {% endif %}
+          {% endfor %}
+
+      {% for n in news %}
+        {% if n.news_check == '-1' %}
+                   <div class="h6">
+                   <img src="{{ n.get_news_url }}" class="q5">
+                <div class="q12">
+                    <p class="q7">{{ n.news_title }}</p>
+                    <div class="q9"><a href="{% url 'bbc:news_comment' n.id %}">{{ n.news_center|safe }}</a></div>
+                    <p class="q10">{{ n.news_author }} | {{ n.news_time|date:'Y-m-d H:i:s' }}</p>
+                </div>
+
+                       {% load bbc_filter %}
+                 <img src="{{ n|check_status }}" class="q11">
+                      </div>
+            {% endif %}
+          {% endfor %}
+    {% else %}
+
+        <img src="{% static 'bbc/img/zan.png' %}" id="q13">
+        <p id="q14">暂无内容</p>
+
+    {% endif %}
+        {% endblock %}
+
+</body>
+{% block super %}
+<script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script language="JavaScript" type="text/JavaScript">
+     $('.h4,.h5,.h6').hide();
+    $('#q1').click(function(){
+        $(this).css({'color':'#1992EF'}),
+        $('#q2,#q3,#q4').css({'color':'#949494 '});
+        $('#n1').css({'background-color':'#1992EF'});
+        $('#n2,#n3,#n4').css({'background-color':'white'});
+        $('.h3').show();
+        $('.h4,.h5,.h6').hide();
+    })
+    $('#q2').click(function(){
+        $(this).css({'color':'#1992EF'}),
+        $('#q1,#q3,#q4').css({'color':'#949494 '});
+        $('#n2').css({'background-color':'#1992EF'});
+        $('#n1,#n3,#n4').css({'background-color':'white'});
+         $('.h4').show();
+        $('.h3,.h5,.h6').hide();
+    })
+    $('#q3').click(function(){
+        $(this).css({'color':'#1992EF'}),
+        $('#q2,#q1,#q4').css({'color':'#949494 '});
+        $('#n3').css({'background-color':'#1992EF'});
+        $('#n1,#n2,#n4').css({'background-color':'white'});
+         $('.h5').show();
+        $('.h4,.h3,.h6').hide();
+    })
+    $('#q4').click(function(){
+        $(this).css({'color':'#1992EF'}),
+        $('#q2,#q3,#q1').css({'color':'#949494 '});
+
+         $('#n4').css({'background-color':'#1992EF'});
+        $('#n1,#n2,#n3').css({'background-color':'white'});
+         $('.h6').show();
+        $('.h4,.h5,.h3').hide();
+    })
+
+
+
+</script>
+{% endblock %}
+</html>

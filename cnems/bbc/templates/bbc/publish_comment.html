@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    {% block title %}<title>发布内容页面</title>{% endblock %}
+    {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'bbc/css/publish_commnet.css' %}" >
+    {{ form.media }}
+</head>
+<body>
+    <div id="d1">
+        {% block shou %}
+        <a href="{% url 'bbc:face' %}"><img id="h2" src="{% static 'bbc/img/1.jpg' %}" alt=""></a>
+        <div id="d98"><a href="{% url 'bbc:publish_comment' %}">发布内容</a></div>
+        {% if user_1 %}
+        <a class="h1" href="{% url 'bbc:set_person' %}"><img id="h1" src="{{ user_1.get_url }}" alt=""></a>
+        {% endif %}
+        {% endblock %}
+        <div id="d3">
+            <div id="d2"></div>
+            {% block pub %}
+            <p id="d4">发布内容</p>
+            {% endblock %}
+            {% block com %}
+            <form id="frmMain" action="{% url 'bbc:publish_save' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <span id="d5">内容名称：</span><input id="d6" type="text" name="comment">
+                <span id="d7">类型：</span>
+                <label for="d8" ><span class="s1" id="k1">新闻</span><input type="radio" id="d8" name="choice" class="s2" value="新闻"></label>
+                <label for="d9" ><span class="s1" id="k2">政策</span><input type="radio" id="d9" name="choice" class="s2" value="政策"></label>
+                <label for="d10"><span class="s1" id="k3">行情</span><input type="radio" id="d10" name="choice" class="s2" value="行情"></label>
+                <label for="d11"><span class="s1" id="k4">技术</span><input type="radio" id="d11" name="choice" class="s2" value="技术"></label>
+                <label for="d0" ><span class="s1" id="k5">快讯</span><input type="radio" id="d0" name="choice" class="s2" value="快讯"></label>
+                <span id="d12">作者：</span><input type="text" id="d13" name="author">
+                <span id="d14">来源：</span><input type="text" id="d15" name="source">
+                <span id="d16">摘要：</span><input type="text" id="d17" name="center">
+                <span id="d18">内容封面：</span>
+                <label for="d20" id="d25"><img src="" id="d19"></label>
+                <input id="d20" type="file" name="face">
+
+                            <script src="{% static '/ueditor/ueditor.config.js' %}" type="text/javascript"></script>
+
+<script src="{% static '/ueditor/ueditor.all.js' %}" type="text/javascript"></script>
+
+<script type="text/javascript">
+        var ue = UE.getEditor('container',{
+            serverUrl: "/ueditor/controller/",
+        });
+ </script>
+ <div class="form-group">
+    <label class="control-label col-md-3">Description:</label>
+    <div class="col-md-4">
+        <script id="container" name="content" type="text/platin">
+        </script>
+    </div>
+</div>
+
+                <input type="button" value="发布" id="d23">
+            </form>
+        </div>
+        {% endblock %}
+    </div>
+</body>
+{% block js %}
+ <script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script language="JavaScript" type="text/JavaScript">
+
+ $('#k1').click(function(){
+        $(this).css({'border':'2px solid #1992EF'}),
+        $('#k2').css({'border':'0px'}),
+        $('#k3').css({'border':'0px'}),
+        $('#k4').css({'border':'0px'});
+        $('#k5').css({'border':'0px'});
+    })
+ $('#k2').click(function(){
+        $(this).css({'border':'2px solid #1992EF'}),
+        $('#k1').css({'border':'0px'}),
+        $('#k3').css({'border':'0px'}),
+        $('#k4').css({'border':'0px'});
+        $('#k5').css({'border':'0px'});
+    })
+ $('#k3').click(function(){
+        $(this).css({'border':'2px solid #1992EF'}),
+        $('#k2').css({'border':'0px'}),
+        $('#k1').css({'border':'0px'}),
+        $('#k4').css({'border':'0px'});
+        $('#k5').css({'border':'0px'});
+
+    })
+ $('#k4').click(function(){
+        $(this).css({'border':'2px solid #1992EF'}),
+        $('#k2').css({'border':'0px'}),
+        $('#k1').css({'border':'0px'}),
+        $('#k3').css({'border':'0px'});
+        $('#k5').css({'border':'0px'});
+    })
+  $('#k5').click(function(){
+        $(this).css({'border':'2px solid #1992EF'}),
+        $('#k2').css({'border':'0px'}),
+        $('#k1').css({'border':'0px'}),
+        $('#k3').css({'border':'0px'});
+         $('#k4').css({'border':'0px'});
+    })
+
+ $('#d20').on('change',function () {
+
+		var choose_file=$(this)[0].files[0];
+
+		var reader=new FileReader();
+
+		reader.readAsDataURL(choose_file);
+
+		reader.onload=function () {
+			 $("#d19").attr("src",reader.result)
+		}
+	});
+
+	$("#d23").click(function(){
+
+	    if($('#d6')[0].value.length==0){
+	        alert('内容名称不能为空');
+	        return
+	    }
+	    if($('.s2')[0].value.length==0){
+	        alert('类型不能为空');
+	        return
+	    }
+	    if($('#d13')[0].value.length==0){
+	    console.log($('.s2')[0].value.length)
+	        alert('作者不能为空');
+	        return
+	    }
+	    if($('#d15')[0].value.length==0){
+	        alert('来源不能为空');
+	        return
+	    }
+	    if($('#d17')[0].value.length==0 && $('#d17')[0].value.length<20){
+	        alert('摘要不能为空长度不能超过20个字符');
+	        return
+	    }
+	    if($('#d20')[0].value.length==0){
+	        alert('封面不能为空')
+	        return
+	    }else{
+	    $("#d23").attr('disabled', true);
+	    frmMain.submit();}
+	});
+</script>
+{% endblock %}
+</html>

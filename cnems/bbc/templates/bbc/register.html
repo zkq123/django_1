@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册界面</title>
+</head>
+<body>
+ {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'bbc/css/register.css' %}" >
+<div id="head"></div>
+		<div id="body_1"><span id="s1">欢迎注册</span>
+			<span id="s2">已有账号？<a href="{% url 'bbc:login_2' %}">马上登录</a></span></div>
+		<div id="body_2">
+			<div id="body_3">
+<form action="{% url 'bbc:login_user' %}" method="post" >
+    {% csrf_token %}
+      <p>
+        {% if error_message %}
+        {{ error_message }}
+        {% endif %}
+    </p>
+    <p>
+        {{ form.errors }}
+    </p>
+    	<input type="number" placeholder="请输入手机号" class="i1" name="phone">
+					<div class="d1"></div>
+					<input type="text" placeholder="验证码" class="i2" name="ver"> <span class="s1"><p class="p1">获取验证码</p></span>
+					<div class="d2"></div>
+					<input type="password" placeholder="密码" class="i1" name="password">
+					<div class="d1"></div>
+					<input type="password" placeholder="密码" class="i1" name="password_t">
+					<div class="d1"></div>
+					<input type="submit" id="zc" value="注册" />
+
+</form>
+
+			</div>
+		</div>
+</body>
+<script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script language="JavaScript" type="text/JavaScript">
+	$('.p1').click(function(){
+			phone = $('.i1')[0].value
+			console.log(phone)
+			var params = {"phone": phone};
+			$.ajax({
+				type: 'POST',
+				url: '{% url 'bbc:verify' %}',
+				data: params
+			});
+	})
+
+</script>
+</html>

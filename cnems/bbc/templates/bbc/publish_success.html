@@ -1,0 +1,22 @@
+{% extends 'bbc/publish_comment.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}<title>发布成功页面</title>{% endblock %}
+</head>
+<body>
+
+{% block pub %}
+<p id="d4">提交成功</p>
+{% endblock %}
+
+{% block com %}
+{% load static %}
+
+<img src="{% static 'bbc/img/tjcg.png' %}" id="x1">
+<p id="x2">提交成功</p>
+<p id="x3">请您耐心等待审核</p>
+<div id="x4"><a href="{% url 'bbc:face' %}">返回首页</a></div>
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新闻</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bbc/css/kx.css' %}">
+</head>
+<body>
+<div class="s1">
+    <a href="{% url 'bbc:face' %}"><img src="{% static 'bbc/img/1.jpg' %}" alt=""></a>
+    <div id="d1"><a href="{% url 'bbc:publish_comment' %}">发布内容</a></div>
+    {% if user_1 %}
+    <a class="h1" href="{% url 'bbc:set_person' %}"><img id="h1" src="{{ user_1.get_url }}" alt=""></a>
+    {% endif %}
+
+</div>
+<div class="s2">
+    <div id="d2"></div>
+    <p id="d4">新闻</p>
+    <p id="d5">2018-12-3 星期六</p>
+    <ul>
+        {% for n in news_1 %}
+        <li>
+            <p class="s10">{{ n.news_title }}</p>
+            <a class="s11" href="{% url 'bbc:kx_comment' n.id %}"><p class="s12">{{ n.news_center }}</p></a>
+            <span class="s12">{{ n.ago_time }}</span>
+            <img class="s13" src="{% static 'bbc/img/2.jpg' %}" alt="">
+            <span class="s15">{{ n.news_look }}</span>
+            <img class="s14" src="{% static 'bbc/img/k_02.png' %}" alt="">
+            <span class="s16">{{ n.news_share }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div id="x6">
+    <div class="x7"></div>
+        <img src="{% static 'bbc/img/xcx.png' %}" alt="">
+        <p id="x8">扫码小程序</p>
+        <p id="x9">掌上轻松阅读>></p>
+    </div>
+    <div id="x10">
+        <div class="x7"></div>
+        <p id="x15">热门新闻</p>
+        <img id="x12" src="{% static 'bbc/img/QQ.jpg' %}" alt="">
+        <div id="x13">去香港，收割一个时代</div>
+        {% for n in news %}
+        <div class="x14">
+            <img src="{{ n.get_news_url }}" alt="">
+            <a href="{% url 'bbc:news_comment' n.id %}"><p class="x16">{{ n.news_content }}</p></a>
+            <p class="x17">{{ n.news_time }}</p>
+        </div>
+        {% endfor %}
+
+    </div>
+</body>
+</html>

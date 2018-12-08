@@ -1,0 +1,91 @@
+{% extends 'bbc/publish_success.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}<title>新闻详情页面</title>{% endblock %}
+</head>
+<body>
+
+{% block pub %}
+<p id="d4">新闻-新闻详情</p>
+{% endblock %}
+{% block com %}
+
+{% load static %}
+    <div id="x5">
+        <p id="x20">{{ news_1.news_title }}</p>
+        <span id="x21">{{ news_1.news_author }}</span>
+        <span id="x22">| {{ news_1.news_time|date:'Y-m-d H:m:s' }}</span>
+        <img id="x27" src="{% static 'bbc/img/k_02.png' %}" alt="">
+        <span id="x28">{{ news_1.news_share }}</span>
+        <img src="{% static 'bbc/img/2.jpg' %}" id="x29">
+        <span id="x30">{{ news_1.news_look }}</span>
+        <p id="x23">{{ news_1.news_content|safe }}</p>
+        <div id="x24" >
+            <a href="{% url 'bbc:news_likes' news_1.id %}"><img src="{% static 'bbc/img/good_n.png' %}" alt=""></a>
+        <span id="x26">{{ news_1.news_likes }}</span>
+            </div>
+        <div id="x25">
+        <img src="{% static 'bbc/img/fx_s.png' %}" alt="">
+            </div>
+        <form action="{% url 'bbc:comment' news_1.id%}" method="post" id="frmMain">
+            {% csrf_token %}
+        <p class="tx">评论区：</p>
+        <textarea class="te" name="py">
+        </textarea>
+
+            <input class="fb" type="button" value="发布" id="pub">
+        </form>
+    </div>
+    <div id="x6">
+    <div class="x7"></div>
+        <img src="{% static 'bbc/img/xcx.png' %}" alt="">
+        <p id="x8">扫码小程序</p>
+        <p id="x9">掌上轻松阅读>></p>
+    </div>
+    <div id="x10">
+        <div class="x7"></div>
+        <p id="x15">热门新闻</p>
+        <img id="x12" src="{% static 'bbc/img/QQ.jpg' %}" alt="">
+        <div id="x13">去香港，收割一个时代</div>
+        {% for n in news %}
+        <div class="x14">
+            <img src="{{ n.get_news_url }}" alt="">
+            <a href="{% url 'bbc:news_comment' n.id %}"><p class="x16">{{ n.news_content }}</p></a>
+            <p class="x17">{{ n.news_time|date:'Y-m-d H:m:s' }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+</body>
+{% block js %}
+<script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script language="JavaScript" type="text/JavaScript">
+    {% if message %}
+        alert('{{ message }}')
+    {% endif %}
+    $('#x24').click(function(){
+        $(this).css({'border':'2px solid #2979FF'}),
+        a = {{ news_1.news_likes }}
+        $('#x26').html(a+1)
+        $('#x26').css({'color':'#2979FF'})
+    })
+    $('#pub').click(function(){
+        pub = $('.te').val()
+        pub = pub.trim()
+        console.log(pub)
+        if (pub.length>0){
+            $('pub').attr('disabled', true);
+            frmMain.submit();
+        }else{
+        console.log('===')
+            alert('请发布评论');
+            return
+        }
+    })
+
+</script>
+
+{% endblock %}
+</html>

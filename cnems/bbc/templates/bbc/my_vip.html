@@ -1,0 +1,106 @@
+{% extends 'bbc/set_person.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}<title>我的会员</title>{% endblock %}
+    {% block sta %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bbc/css/my_vip.css' %}" >
+    {% endblock %}
+</head>
+<body>
+        {% block hy %}
+        <div class="s8" id="v1">
+            <img src="{% static 'bbc/img/my_vip.png' %}" alt="">
+            <p id="p1"><a href="">我的会员</a></p>
+        </div>
+        {% endblock %}
+
+        {% block s9 %}
+        <div class="s9">
+            <p><a href="{% url 'bbc:set_person' %}">个人资料</a></p>
+            <p><a href="{% url 'bbc:change_pwd' %}">修改密码</a></p>
+            <p><a href="{% url 'bbc:login_out' %}">退出登录</a></p>
+        </div>
+        {% endblock %}
+
+    {% block s4 %}
+    <div id="j1">
+        <div id="v2" class="k1"></div>
+        <p class="k2" id="v3">我的会员</p>
+        <div id="v4">
+            <span>当前<span id="l2">{{ user_1.vip }}</span>级，本月剩余文章发布次数：</span>
+            <span id="l3">{{ user_1.number }}</span><span>次</span>
+        </div>
+        <div id="v9"><a href="{% url 'bbc:pay' %}">续费/升级</a></div>
+        <div class="k1" id="v5"></div>
+        <p class="k2" id="v6">会员等级说明</p>
+        <div class="k5">
+            <img src="{% static 'bbc/img/v1.png' %}" alt="">
+            <span>￥2000</span>
+            <p>每个月可免费发
+                布2条新闻
+            </p>
+        </div>
+        <div class="k5">
+            <img src="{% static 'bbc/img/v2.png' %}" alt="">
+            <span>￥5000</span>
+            <p>每个月可免费发
+                布5条新闻
+            </p>
+        </div>
+        <div class="k5">
+            <img src="{% static 'bbc/img/v3.png' %}" alt="">
+            <span>￥10000</span>
+            <p>每个月可免费发
+                布10条新闻
+            </p>
+        </div>
+        <div class="k1" id="v7"></div>
+        <p class="k2" id="v8">购买记录</p>
+        {% if cus_list %}
+          {% for i in cus_list %}
+         <div id="m1">
+             <span>交易编号{{ i.pays_number }}</span><span>￥{{ i.pays_money }}</span><span>{{ i.pays_time|date:'Y-m-d' }}</span>
+         </div>
+         {% endfor %}
+          {% endif %}
+        <nav aria-label="Page navigation" class="pag">
+<ul>
+    {% if cus_list.has_previous %}
+    <li>
+    <a href="?page={{ cus_list.previous_page_number }}" aria-label="上一页">
+        <span aria-hidden="true">上一页</span>
+    </a>
+    </li>
+    {% endif %}
+    {% for pg in cus_list.paginator.page_range %}
+    {% load bbc_filter %}
+    {% circle_page cus_list.number pg %}
+    {% endfor %}
+
+    {% if cus_list.has_next %}
+    <li>
+        <a href="?page={{ cus_list.next_page_number }}" aria-label="下一页">
+        <span aria-hidden="true">下一页</span>
+
+    </a>
+    </li>
+    {% endif %}
+</ul>
+
+</nav>
+    </div>
+{% endblock %}
+</body>
+{% block super %}
+ <script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script language="JavaScript" type="text/JavaScript">
+
+    {% if message %}
+    alert('{{ message }}')
+    {% endif %}
+
+</script>
+{% endblock %}
+</html>

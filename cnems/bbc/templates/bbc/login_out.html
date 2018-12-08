@@ -1,0 +1,259 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'bbc/css/shouye.css' %}" >
+</head>
+<body>
+    <a id="v12" href="{% url 'bbc:kx' %}"><div id="v13">查看更多资讯</div></a>
+     <div class="s1">
+        <div id="d1"><a href="{% url 'bbc:publish_comment' %}">发布内容</a></div>
+         {% if user_1 %}
+         <a class="h1" href="{% url 'bbc:set_person' %}"><img class="h1" src="{{ user_1.get_url }}" alt=""></a>
+         {% else %}
+         <div id="z1"><a href="{% url 'bbc:register' %}">注册</a></div>
+         <div id="z2"><a href="{% url 'bbc:login_2' %}">登录</a></div>
+         {% endif %}
+    </div>
+    <div id="out">
+    <div id="in">
+        <img src="{% static 'bbc/img/timg.jpg' %}" alt="">
+        <img src="{% static 'bbc/img/re.jpg' %}" alt="">
+        <img src="{% static 'bbc/img/zy.jpg' %}" alt="">
+        <img src="{% static 'bbc/img/jr.jpg' %}" alt="">
+    </div>
+</div>
+<div id="s1">
+    <span class="active"></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+<div class="jiantou">
+    <div id="left"><</div>
+    <div id="right">></div>
+</div>
+     <img id="m1" src="{% static 'bbc/img/t.jpg' %}" alt="">
+     <img id="m2" src="{% static 'bbc/img/ti.jpg' %}" alt="">
+     <div id="m3">
+       <span id="h1">新闻</span><span id="h2">政策</span><span id="h3">行情</span><span id="h4">技术</span>
+     </div>
+
+     {% for n in news_xw %}
+     <div class="x1">
+         <img class="x2" src="{{ n.get_news_url }}" alt="">
+         <p class="x3">{{ n.news_title }}</p>
+         {% load bbc_filter %}
+         <a class="x4" href="{% url 'bbc:news_comment' n.id %}"><p>{{ n.news_center | change_str }}</p></a>
+        <span class="x7">{{ n.news_author }}</span>
+         <span class="x7"> | {{ n.news_time|date:'Y-m-d H:i:s' }}</span>
+     </div>
+
+    {% endfor %}
+
+{% for n in news_zc %}
+     <div class="v2">
+         <img class="x2" src="{{ n.get_news_url }}" alt="">
+         <p class="x3">{{ n.news_title }}</p>
+         <a class="x4" href="{% url 'bbc:news_comment' n.id %}"><p>{{ n.news_center|change_str }}</p></a>
+        <span class="x7">{{ n.news_author }}</span>
+         <span class="x7"> | {{ n.news_time|date:'Y-m-d H:i:s' }}</span>
+     </div>
+    {% endfor %}
+
+{% for n in news_hq %}
+     <div class="v3">
+         <img class="x2" src="{{ n.get_news_url }}" alt="">
+         <p class="x3">{{ n.news_title }}</p>
+         <a class="x4" href="{% url 'bbc:news_comment' n.id %}"><p>{{ n.news_center|change_str }}</p></a>
+        <span class="x7">{{ n.news_author }}</span>
+         <span class="x7"> | {{ n.news_time|date:'Y-m-d H:i:s' }}</span>
+     </div>
+    {% endfor %}
+
+     {% for n in news_js %}
+     <div class="v4">
+         <img class="x2" src="{{ n.get_news_url }}" alt="">
+         <p class="x3">{{ n.news_title }}</p>
+         <a class="x4" href="{% url 'bbc:news_comment' n.id %}"><p>{{ n.news_center|change_str }}</p></a>
+        <span class="x7">{{ n.news_author }}</span>
+         <span class="x7"> | {{ n.news_time|date:'Y-m-d H:i:s' }}</span>
+     </div>
+    {% endfor %}
+    <a id="v15" href="{% url 'bbc:news_list' %}"><div id="v16">点击加载更多</div></a>
+
+     <div id="f2">
+         <div id="x11"></div>
+         <p id="x8">快讯</p>
+                <div id="v9">
+                 <div class="s4" id="n1"></div>
+                    <a class="s5" href="{% url 'bbc:kx_comment' news_2.id %}"><p class="x9">{{ news_2.news_center }}</p></a>
+                 <p class="x10" id="n2">{{ news_2.news_center|safe }}</p>
+                </div>
+                 <div id="v10">
+                 <div class="s4" id="n3"></div>
+                    <a class="s5" href="{% url 'bbc:kx_comment' news_3.id %}"><p class="x9">{{ news_3.news_center }}</p></a>
+                 <p class="x10" id="n4">{{ news_3.news_center|safe }}</p>
+                </div>
+                <div id="v11">
+                 <div class="s4" id="n5"></div>
+                    <a class="s5" href="{% url 'bbc:kx_comment' news_4.id %}"><p class="x9">{{ news_4.news_center }}</p></a>
+                 <p class="x10" id="n6">{{ news_4.news_center|safe }}</p>
+                </div>
+
+
+     </div>
+
+     <div id="f3"></div>
+     <div id="f4">
+         <p>热门新闻</p>
+         <img src="{% static 'bbc/img/t.jpg' %}" alt="">
+         {% for n in news %}
+         <div id="f5">
+                 <img id="f6" src="{{ n.get_news_url }}" alt="">
+                 <a id="f7" href="{% url 'bbc:news_comment' n.id %}"><p>{{ n.news_content|safe }}
+                 </p></a>
+                 <span id="f8">{{ n.news_time|date:'Y-m-d H:i:s' }}</span>
+             </div>
+         {% endfor %}
+     </div>
+
+<script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+
+<script>
+    $('.v2,.v3,.v4').hide()
+   {% if message %}
+            $('#d1').click(function(){
+                alert('{{ message }}');
+            })
+
+    {% endif %}
+
+
+    r = 0
+    $(document).ready(function(){
+        $('#n1').click(function(){
+           $('#n2').toggle('slow');
+           r -= 90;
+           if(r==-180){
+           r += 180;
+             $('#n1').css('transform','rotate(' + r + 'deg)');
+           }
+           $('#n1').css('transform','rotate(' + r + 'deg)');
+        })
+    })
+    $(document).ready(function(){
+        $('#n3').click(function(){
+           $('#n4').toggle('slow');
+           r -= 90;
+           if(r==-180){
+           r += 180;
+             $('#n3').css('transform','rotate(' + r + 'deg)');
+           }
+           $('#n3').css('transform','rotate(' + r + 'deg)');
+        })
+    })
+    $(document).ready(function(){
+        $('#n5').click(function(){
+           $('#n6').toggle('slow');
+           r -= 90;
+           if(r==-180){
+           r += 180;
+             $('#n5').css('transform','rotate(' + r + 'deg)');
+           }
+           $('#n5').css('transform','rotate(' + r + 'deg)');
+        })
+    })
+    $('#s1 span').mouseover(function(){
+        index = $(this).index();
+        $(this).addClass('active').siblings().removeClass('active');
+        $('#in img').eq(index).show().siblings().hide();
+        clearInterval(bb);
+        b=index;
+    }).mouseout(function () {
+        aa();
+    });
+
+
+
+    aa();
+
+    var b = 0;
+
+    function aa() {
+        bb = setInterval(rClick,1000);
+    }
+
+
+
+    $('.jiantou').mouseover(function () {
+        clearInterval(bb);
+    }).mouseout(function () {
+        aa();
+    });
+
+
+
+    $('#right').click(rClick);
+
+    function rClick() {
+        b++;
+        if(b<4){
+            $('#s1 span').eq(b).addClass('active').siblings().removeClass('active');
+            $('#in img').eq(b).show().siblings().hide();
+        }else{
+            b=0;
+            $('#s1 span').eq(0).addClass('active').siblings().removeClass('active');
+            $('#in img').eq(0).show().siblings().hide();
+        }
+    }
+
+    $('#left').click(lClick);
+    function lClick() {
+        b--;
+        if(b>0){
+            $('#s1 span').eq(b).addClass('active').siblings().removeClass('active');
+            $('#in img').eq(b).show().siblings().hide();
+        }else{
+             b=4
+            $('#s1 span').eq(0).addClass('active').siblings().removeClass('active');
+            $('#in img').eq(0).show().siblings().hide();
+        }
+
+
+    }
+ $('#h1').click(function(){
+        $(this).css({'color':'#1992EF'});
+        $('#h2,#h3,#h4').css({'color':'#5D5F62'});
+        $('.x1').show();
+         $('.v2,.v3,.v4').hide();
+
+    })
+     $('#h2').click(function(){
+        $(this).css({'color':'#1992EF'});
+        $('#h1,#h3,#h4').css({'color':'#5D5F62'});
+        $('.v2').show();
+         $('.x1,.v3,.v4').hide();
+
+    })
+     $('#h3').click(function(){
+        $(this).css({'color':'#1992EF'});
+        $('#h2,#h1,#h4').css({'color':'#5D5F62'});
+        $('.v3').show();
+         $('.v2,.x1,.v4').hide();
+
+    })
+     $('#h4').click(function(){
+        $(this).css({'color':'#1992EF'});
+        $('#h2,#h3,#h1').css({'color':'#5D5F62'});
+        $('.v4').show();
+         $('.v2,.v3,.x1').hide();
+
+    })
+
+</script>
+
+</body>
+</html>

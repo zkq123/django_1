@@ -1,0 +1,44 @@
+{% for i in cus_list %}
+    账单：{{ i.pays }}<br>
+{% endfor %}
+
+
+<nav aria-label="Page navigation">
+<ul>
+    {% if cus_list.has_previous %}
+    <li>
+    <a href="?page={{ cus_list.previous_page_number }}" aria-label="上一页">
+        <span aria-hidden="true">上一页</span>
+
+    </a>
+
+    </li>
+    {% endif %}
+
+    {% for pg in cus_list.paginator.page_range %}
+    {% comment %}
+        {% if cus_list.number == pg %}
+            <li class="activate">
+                <a href="?page={{pg}}"> {{ pg }}</a>
+
+            </li>
+        {% else %}
+            <li><a href="?page={{ pg }}">{{ pg }}</a></li>
+        {% endif %}
+
+    {% endcomment %}
+    {% load bbc_filter %}
+    {% circle_page cus_list.number pg %}
+    {% endfor %}
+
+    {% if cus_list.has_next %}
+    <li>
+        <a href="?page={{ cus_list.next_page_number }}" aria-label="下一页">
+        <span aria-hidden="true">下一页</span>
+
+    </a>
+    </li>
+    {% endif %}
+</ul>
+
+</nav>

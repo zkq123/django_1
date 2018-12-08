@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'bbc/css/login.css' %}" >
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+</head>
+<body>
+    <div id="head">
+			<div id="body_1">
+				<span id="s1">
+					欢迎登录
+				</span>
+				<span id="s2">
+					还没有账号？<a href="{% url 'bbc:register' %}">快去注册</a>
+				</span>
+			</div>
+        <div id="body_2">
+				<div id="body_3">
+<form action="{% url 'bbc:login_2' %}" method="post">
+    {% csrf_token %}
+    {% if error_message %}
+    {{ error_message }}
+    {% endif %}
+     <p>
+        {{ form.errors }}
+    </p>
+
+    <input type="number" name="phone" placeholder="请输入手机号" class="i1" value="{{ phone }}"/>
+						<div class="d1"></div>
+						<input type="password" name="password" placeholder="请输入密码" class="i1" value="{{ pwd }}"/>
+						<div class="d1"></div>
+						<input type="radio" name="aa"  value="1"/> <span>记住密码</span>
+						<a href="{% url 'bbc:find_pwd' %}" class="i3">忘记密码</a>
+						<input type="submit" value="登录" id="login">
+
+    </form>
+    </div>
+    </div>
+</div>
+</body>
+
+<script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script language="JavaScript" type="text/JavaScript">
+
+</script>
+</html>

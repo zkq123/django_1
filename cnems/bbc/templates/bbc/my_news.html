@@ -1,0 +1,47 @@
+{% extends 'bbc/set_person.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}<title>我的消息通知页面</title>{% endblock %}
+     {% block sta %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bbc/css/my_news.css' %}" >
+    {% endblock %}
+</head>
+<body>
+
+     {% block s9 %}
+        <div class="s9">
+            <p><a href="{% url 'bbc:set_person' %}">个人资料</a></p>
+            <p><a href="{% url 'bbc:change_pwd' %}">修改密码</a></p>
+            <p><a href="{% url 'bbc:login_out' %}">退出登录</a></p>
+        </div>
+        {% endblock %}
+
+        {% block news %}
+         <div class="s8" id="v12">
+            <img src="{% static 'bbc/img/xxx_n.png' %}" alt="">
+            <p><a href="">消息通知</a></p>
+        </div>
+        {% endblock %}
+
+        {% block s4 %}
+         <div id="j1">
+        <div id="v2" class="k1"></div>
+        <p class="k2" id="v3">我的消息通知</p>
+     {% if news_pl %}
+     {% for i in news_pl %}
+             {% for a in i %}
+        <p class="k3">{{ a.users.neck_name }}评论了您发布的
+            {{ a.news.news_title }}</p>
+             <span class="k4">{{ a.ago_2_time }}</span>
+             {% endfor %}
+     {% endfor %}
+     {% else %}
+            <p class="k5">暂时还没有消息</p>
+     {% endif %}
+                      </div>
+
+        {% endblock %}
+</body>
+</html>
